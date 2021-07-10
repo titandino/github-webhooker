@@ -5,7 +5,7 @@ const router = require('express-promise-router')();
 router.post('/ghwh', async (req, res, next) => {
     let data = req.body;
     let webHookUrl = config.webhookMapping[data.repository.name];
-    if (webHookUrl && data.ref != 'refs/heads/master')
+    if (!data.commits || !webHookUrl || data.ref != 'refs/heads/master')
         return;
     data.commits.forEach(commit => {
         if (commit.message.includes('Merge'))
