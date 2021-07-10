@@ -1,0 +1,31 @@
+{
+  "name": "github-webhooker",
+  "version": "1.0.0",
+  "description": "Manages and formats webhooks for git updates.",
+  "main": "server.js",
+  "scripts": {
+    "start": "NODE_ENV=production node ./server.js",
+    "stop": "pkill --signal SIGINT -u node -f server.js",
+    "test": "mocha --recursive --reporter mocha-junit-reporter --reporter-options mochaFile=testresults.xml tests",
+    "devtest": "mocha --recursive --reporter spec tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/titandino/github-webhooker.git"
+  },
+  "author": "Trenton Kress",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/titandino/github-webhooker/issues"
+  },
+  "homepage": "https://github.com/titandino/github-webhooker#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-promise-router": "^4.0.1",
+    "log4js": "^6.3.0",
+    "moment": "^2.29.1",
+    "yargs": "^16.2.0"
+  }
+}
