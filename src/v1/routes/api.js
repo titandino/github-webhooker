@@ -1,6 +1,7 @@
 const axios = require('axios');
 const moment = require('moment');
 const router = require('express-promise-router')();
+const logger = log4js.getLogger(`GH-WEBHOOKER:${require('path').parse(module.filename).name}`);
 
 router.post('/ghwh', async (req, res, next) => {
     let data = req.body;
@@ -19,6 +20,8 @@ router.post('/ghwh', async (req, res, next) => {
         };
         if (data.sender && data.sender.avatar_url)
             hookBody.avatar_url = data.sender.avatar_url;
+        logger.info('Posting to ' + webHookUrl);
+        logger.info(hookBody);
         await axios.post(webHookUrl, hookBody);
     }
     res.end(200);
