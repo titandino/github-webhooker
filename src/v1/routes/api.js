@@ -4,7 +4,7 @@ const router = require('express-promise-router')();
 
 router.post('/ghwh', async (req, res, next) => {
     let data = req.body;
-    let webHookUrl = config.webhookMapping[repository.name];
+    let webHookUrl = config.webhookMapping[data.repository.name];
     if (webHookUrl && data.ref != 'refs/heads/master')
         return;
     data.commits.forEach(commit => {
