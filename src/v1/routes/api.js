@@ -7,7 +7,7 @@ router.post('/ghwh', async (req, res, next) => {
     let data = req.body;
     let webHookUrl = config.webhookMapping[data.repository.name];
     if (!data.commits || !webHookUrl || data.ref != 'refs/heads/master') {
-        res.end('500');
+        res.status(500).end({ commits: data.commits, webhookUrl, ref: data.ref });
         return;
     }
     for (i in data.commits) {
