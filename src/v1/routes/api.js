@@ -5,8 +5,10 @@ const router = require('express-promise-router')();
 router.post('/ghwh', async (req, res, next) => {
     let data = req.body;
     let webHookUrl = config.webhookMapping[data.repository.name];
-    if (!data.commits || !webHookUrl || data.ref != 'refs/heads/master')
+    if (!data.commits || !webHookUrl || data.ref != 'refs/heads/master') {
+        res.end('500');
         return;
+    }
     data.commits.forEach(commit => {
         if (commit.message.includes('Merge'))
             return;
@@ -18,6 +20,7 @@ router.post('/ghwh', async (req, res, next) => {
             hookBody.avatar_url = data.sender.avatar_url;
         axios({method: 'POST', url: webHookUrl, data: hookBody});
     });
+    res.end(200);
 });
 
 module.exports = router;
