@@ -24,7 +24,7 @@ router.post('/ghwh', async (req, res, next) => {
         logger.info(hookBody);
         await axios.post(webHookUrl, hookBody);
     }
-    res.end(200);
+    res.status(200).end();
 });
 
 module.exports = router;
