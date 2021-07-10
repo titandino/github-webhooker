@@ -9,7 +9,8 @@ router.post('/ghwh', async (req, res, next) => {
         res.end('500');
         return;
     }
-    data.commits.forEach(commit => {
+    for (i in data.commits) {
+        let commit = data.commits[i];
         if (commit.message.includes('Merge'))
             return;
         let hookBody = {
