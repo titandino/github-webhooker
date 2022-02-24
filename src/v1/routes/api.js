@@ -1,15 +1,16 @@
-const axios = require('axios');
 const moment = require('moment');
 const router = require('express-promise-router')();
 const logger = log4js.getLogger(`GH-WEBHOOKER:${require('path').parse(module.filename).name}`);
+const WebhookManager = require('discord-webhook-manager');
 
 router.post('/ghwh', async (req, res, next) => {
     let data = req.body;
-    let webHookUrl = config.webhookMapping[data.repository.name];
-    if (!data.commits || !webHookUrl || data.ref != 'refs/heads/master') {
-        res.status(500).end({ commits: data.commits, webhookUrl, ref: data.ref });
+    let webhookData = config.webhookMapping[data.repository.name];
+    if (!data.commits || !webhookData || data.ref != 'refs/heads/master') {
+        res.status(500).end({ commits: data.commits, webhookData, ref: data.ref });
         return;
     }
+    let webhook = new WebhookManager(webhookData.id, webhookData.token);
     for (i in data.commits) {
         let commit = data.commits[i];
         if (commit.message.includes('Merge'))
@@ -20,10 +21,10 @@ router.post('/ghwh', async (req, res, next) => {
         };
         if (data.sender && data.sender.avatar_url)
             hookBody.avatar_url = data.sender.avatar_url;
-        logger.info('Posting to ' + webHookUrl);
+        logger.info('Posting to ' + webhookData);
         logger.info(hookBody);
         try {
-            await axios.post(webHookUrl, hookBody);
+            webhook.addToQueue(hookBody);
         } catch(e) {
             logger.error(e);
         }
