@@ -1,7 +1,7 @@
 const moment = require('moment');
 const router = require('express-promise-router')();
 const logger = log4js.getLogger(`GH-WEBHOOKER:${require('path').parse(module.filename).name}`);
-const WebhookManager = require('../../lib/webhook-manager');
+const WebhookManager = require('../lib/webhook-manager');
 
 const webhooks = {};
 
