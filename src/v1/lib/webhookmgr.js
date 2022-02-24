@@ -10,7 +10,6 @@ class WebhookManager extends EventEmitter {
   constructor(webhookID, webhookToken, interval = 2000) {
     super();
     if (!webhookID || !webhookToken) throw new TypeError('Expected Webhook ID and Webhook Token');
-    if (interval < 0 || joinInputLengths < 0) throw new TypeError('`interval` and `joinInputLengths` parameter must be greater than or equal to 0');
     this.url = `https://discordapp.com/api/webhooks/${webhookID}/${webhookToken}`;
     this.interval = interval;
     this.queue = [];
