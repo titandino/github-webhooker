@@ -31,7 +31,7 @@ router.post('/ghwh', async (req, res, next) => {
         };
         if (data.sender && data.sender.avatar_url)
             hookBody.avatar_url = data.sender.avatar_url;
-        logger.info('Posting to ' + webhookData);
+        logger.info('Posting to ' + webhookData.id + ' - ' + webhookData.token);
         logger.info(hookBody);
         try {
             webhook.addToQueue(hookBody);
