@@ -13,7 +13,7 @@ router.post('/ghwh', async (req, res, next) => {
     for (i in data.commits) {
         let commit = data.commits[i];
         if (commit.message.includes('Merge'))
-            return;
+            continue;
         let hookBody = {
             username: commit.author.name,
             content: moment(commit.timestamp).format('MMMM Do YYYY, h:mm:ssa') + ' - ' + commit.message,
