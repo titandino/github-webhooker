@@ -6,7 +6,10 @@ const WebhookManager = require('../lib/webhookmgr');
 const webhooks = {};
 
 Object.keys(config.webhookMapping).forEach(key => {
-    webhooks[key] = new WebhookManager(config.webhookMapping[key].id, config.webhookMapping[key].token)
+    webhooks[key] = new WebhookManager(config.webhookMapping[key].id, config.webhookMapping[key].token);
+    webhooks[key].on('error', (error) => {
+        logger.error(`Webhook Error: ${error}`);
+    });
 });
 
 router.post('/ghwh', async (req, res, next) => {
