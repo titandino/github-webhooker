@@ -20,6 +20,7 @@ class WebhookManager extends EventEmitter {
 
     setInterval(async () => {
       try {
+        console.log('Sending webhooks...');
         if (this.rateLimiter.length >= 30 || !this.queue.length || this.enabled) return;
         const body = this.queue[0];
         try {
