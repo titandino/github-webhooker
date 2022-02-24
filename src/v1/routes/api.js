@@ -22,7 +22,7 @@ router.post('/ghwh', async (req, res, next) => {
             hookBody.avatar_url = data.sender.avatar_url;
         logger.info('Posting to ' + webHookUrl);
         logger.info(hookBody);
-        await axios.post(webHookUrl, hookBody);
+        axios.post(webHookUrl, hookBody);
     }
     res.status(200).end();
 });
