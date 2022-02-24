@@ -38,6 +38,7 @@ router.post('/ghwh', async (req, res, next) => {
         } catch(e) {
             logger.error(e);
         }
+        webhook.startWebhookSending();
     }
     res.status(200).end();
 });
