@@ -16,8 +16,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const errors = require('./v1/lib/errors');
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }));
+app.use(bodyParser.json({ limit: '10mb' }));
 
 app.use('/api', require('./v1/routes/api'));
 
