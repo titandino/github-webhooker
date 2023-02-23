@@ -16,12 +16,12 @@ router.post('/ghwh', async (req, res, next) => {
     let data = req.body;
     let webhookData = config.webhookMapping[data.repository.name];
     if (!data.commits || !webhookData || data.ref != 'refs/heads/master') {
-        res.status(500).end({ error: "wrong ref or data", commits: data.commits, webhookData, ref: data.ref });
+        res.status(500).json({ error: "wrong ref or data", commits: data.commits, webhookData, ref: data.ref });
         return;
     }
     let webhook = webhooks[data.repository.name];
     if (!webhook) {
-        res.status(500).end({ error: "webhook not found", commits: data.commits, webhookData, ref: data.ref });
+        res.status(500).json({ error: "webhook not found", commits: data.commits, webhookData, ref: data.ref });
         return;
     }
     for (i in data.commits) {
