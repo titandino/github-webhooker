@@ -15,7 +15,7 @@ Object.keys(config.webhookMapping).forEach(key => {
 router.post('/ghwh', async (req, res, next) => {
     let data = req.body;
     let webhookData = config.webhookMapping[data.repository.name];
-    if (!data.commits || !webhookData || data.ref != 'refs/heads/master') {
+    if (!data.commits || !webhookData || data.ref != 'refs/heads/dev') {
         res.status(500).json({ error: "wrong ref or data", commits: data.commits, webhookData, ref: data.ref });
         return;
     }
